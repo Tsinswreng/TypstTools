@@ -1,3 +1,4 @@
+//TODO 層級不深 廣度深(同級者多)旹時有警告: layout did not converge within 5 attempts Hint: check if any states or queries are updating themselvestypst
 // 用來記「目前層級」
 #let lvl = counter("heading-lvl")
 
@@ -34,7 +35,7 @@
 	lvl.update(l)
 }
 
-/* 
+/*
 #set heading(numbering: "1.")
 
 
@@ -60,3 +61,25 @@
 	]
 ]
  */
+
+#if false{
+[
+#let lvl = counter("heading-lvl")
+// 真正下標題的函數
+#let H(Title, Content) = context {
+	// 先讓當前層級 +1
+	lvl.step()//lvl++
+	//當前層級數字
+	let l = lvl.get().first()
+
+	[#text(red)[#(l+1)]]//t
+	heading(
+		level: l+1,
+		//body
+	)[#Title]
+	Content//子層
+	// 子層結束後重置層級
+	lvl.update(l)//lvl=l
+}
+]
+}
